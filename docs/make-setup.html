@@ -1,0 +1,343 @@
+<title>Make 預約自動化設定</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* 版型：單欄操作手冊，左側步驟編號軸線；模板區塊附「複製」按鈕 */
+:root{
+  --bg:#f6f8f7; --surface:#ffffff; --ink:#0f1a18; --mute:#55625f; --line:#dbe3e0;
+  --teal:#0b7a70; --teal-soft:#e3f2ef; --lime:#5c7a00; --lime-bg:#f1ffc4; --warn:#9a4b00; --warn-bg:#fff4e5;
+  --code-bg:#eef3f1;
+  --f-body:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#050b0a; --surface:#0d1715; --ink:#eef5f3; --mute:#9db0ac; --line:#20322f;
+  --teal:#2dd4bf; --teal-soft:#0f2c29; --lime:#c8ff00; --lime-bg:#1c2400; --warn:#ffb86b; --warn-bg:#2a1a08;
+  --code-bg:#09120f; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#050b0a; --surface:#0d1715; --ink:#eef5f3; --mute:#9db0ac; --line:#20322f;
+  --teal:#2dd4bf; --teal-soft:#0f2c29; --lime:#c8ff00; --lime-bg:#1c2400; --warn:#ffb86b; --warn-bg:#2a1a08;
+  --code-bg:#09120f; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.8 var(--f-body);margin:0}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:2.5rem 4rem}
+h1,h2,h3{text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:clamp(1.7rem,4.5vw,2.3rem);font-weight:900;letter-spacing:.01em}
+.lede{color:var(--mute);margin:.75rem 0 0;max-width:40em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem}
+.chip{font-size:.8rem;padding:3px 10px;border-radius:99px;background:var(--teal-soft);color:var(--teal);font-weight:700}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));gap:8px;margin:2rem 0 0;padding:0;list-style:none}
+.flow li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;font-size:.86rem;line-height:1.5}
+.flow b{display:block;font-size:.72rem;color:var(--teal);letter-spacing:.06em}
+section{margin-top:3rem}
+.sec-h{display:flex;align-items:baseline;gap:12px;padding-bottom:.6rem;border-bottom:2px solid var(--ink)}
+.sec-h span{font:600 .85rem var(--f-mono);color:var(--teal)}
+.sec-h h2{font-size:1.35rem;font-weight:900}
+h3{font-size:1.05rem;font-weight:700;margin-top:1.75rem}
+p,li{max-width:44em}
+ol.steps{padding-left:1.4rem;margin:.75rem 0}
+ol.steps li{margin:.35rem 0}
+code{font-family:var(--f-mono);font-size:.86em;background:var(--code-bg);padding:1px 6px;border-radius:5px;overflow-wrap:anywhere}
+.mod{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem 1.1rem;margin-top:1rem}
+.mod-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mod-h .tag{font:600 .75rem var(--f-mono);background:var(--ink);color:var(--bg);border-radius:6px;padding:2px 8px}
+.mod-h strong{font-size:1rem}
+.mod-h small{color:var(--mute)}
+.fields{width:100%;border-collapse:collapse;margin-top:.75rem;font-size:.9rem}
+.fields th,.fields td{text-align:left;vertical-align:top;padding:.45rem .5rem;border-top:1px solid var(--line)}
+.fields th{width:34%;font-weight:700;color:var(--mute)}
+.tblwrap{overflow-x:auto}
+.tpl{margin-top:.75rem;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tpl-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:.4rem .6rem .4rem .9rem;background:var(--code-bg);font-size:.8rem;color:var(--mute);font-weight:700}
+.tpl pre{margin:0;padding:.9rem 1rem;white-space:pre-wrap;word-break:break-word;font:.86rem/1.75 var(--f-body);background:var(--surface);max-height:420px;overflow:auto}
+button.copy{font:700 .8rem var(--f-body);border:1px solid var(--teal);background:transparent;color:var(--teal);border-radius:99px;padding:4px 12px;min-height:32px;cursor:pointer}
+button.copy:hover{background:var(--teal-soft)}
+button.copy:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.note{border-radius:12px;padding:.8rem 1rem;margin-top:1rem;font-size:.92rem;line-height:1.75}
+.note.tip{background:var(--lime-bg);border:1px solid color-mix(in srgb,var(--lime) 35%,transparent)}
+.note.warn{background:var(--warn-bg);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.note b{color:var(--ink)}
+.check{list-style:none;padding:0}
+.check li{padding-left:1.6rem;position:relative;margin:.4rem 0}
+.check li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;border:2px solid var(--teal);border-radius:4px}
+footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mute);font-size:.85rem}
+a{color:var(--teal)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Make 預約自動化設定</h1>
+    <p class="lede">有人在 domingoai.com 預約 30 分鐘評估時，Make 會自動建立 Google 日曆會議和 Meet 連結、寄確認信給客戶、請 Claude 寫會前摘要寄給你，再把 Meet 連結寫回網站後台。照這份做一次，大約 40 分鐘。</p>
+    <div class="meta"><span class="chip">情境 1 個</span><span class="chip">每筆預約約 6 次操作</span><span class="chip">Make 免費方案 1,000 次／月</span></div>
+    <ol class="flow" aria-label="自動化流程">
+      <li><b>網站</b>客戶送出預約</li>
+      <li><b>Google 日曆</b>建立會議＋Meet，邀請客戶</li>
+      <li><b>Gmail</b>確認信寄給客戶</li>
+      <li><b>Claude</b>寫會前摘要</li>
+      <li><b>Gmail</b>摘要寄給你</li>
+      <li><b>網站</b>寫回 Meet 連結，狀態變「已確認」</li>
+    </ol>
+  </header>
+
+  <section>
+    <div class="sec-h"><span>00</span><h2>先準備好</h2></div>
+    <ol class="steps">
+      <li><b>Make 帳號</b>：到 make.com 註冊，免費方案就夠用。</li>
+      <li><b>Google 帳號</b>：用來開會的日曆，以及寄信的 Gmail。</li>
+      <li><b>Anthropic API 金鑰</b>：到 console.anthropic.com → API Keys → Create Key。帳戶要先儲值一點額度。金鑰只貼在 Make 的連線設定裡，不要貼到對話、文件或任何檔案。</li>
+      <li><b>網站已上傳最新外掛</b>：後台「網站設定」底下要看得到「自動化」。</li>
+    </ol>
+    <div class="note warn"><b>用 @gmail.com 寄信要多一步。</b>Make 規定一般 Gmail 帳號連 Gmail 模組時，要用自己在 Google Cloud 建立的 OAuth 用戶端（約 15 分鐘，做一次就好）。Google 日曆不需要這一步。如果你用的是自己網域的 Google Workspace 信箱，可以直接連。步驟在最下面的「附錄 A」。</div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>01</span><h2>建立情境，接上網站</h2></div>
+    <ol class="steps">
+      <li>Make → <b>Create a new scenario</b>，命名「多明哥｜預約自動化」。</li>
+      <li>第一個模組選 <b>Webhooks → Custom webhook</b> → Add → 名稱填 <code>domingo-booking</code> → Save。</li>
+      <li>按 <b>Copy address to clipboard</b> 複製網址（長得像 <code>https://hook.us2.make.com/…</code>）。</li>
+      <li>到 WordPress 後台 <b>網站設定 → 自動化</b>，貼上網址，按「儲存」。</li>
+      <li>回到 Make，Webhook 模組會顯示「正在等待資料」。這時到網站後台按 <b>送出測試資料</b>。</li>
+      <li>Make 顯示 <b>Successfully determined</b>，代表它已經認得所有欄位，之後就能用點選的方式帶入。</li>
+    </ol>
+    <div class="note tip">這個網址等同鑰匙，拿到的人就能送假資料進來。不要貼在公開的地方。</div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>02</span><h2>加上分流（Router）</h2></div>
+    <p>在 Webhook 後面加 <b>Flow Control → Router</b>，拉出兩條路線，各自在連接線上按扳手圖示設定篩選條件：</p>
+    <div class="tblwrap"><table class="fields">
+      <tr><th>路線 A：新預約</th><td>條件 <code>event</code> → Text operators: Equal to → <code>created</code></td></tr>
+      <tr><th>路線 B：取消</th><td>條件 <code>event</code> Equal to <code>cancelled</code>，再加一條 AND：<code>event_id</code> → Exists</td></tr>
+    </table></div>
+    <p>「送出測試資料」的 <code>event</code> 是 <code>test</code>，兩條路線都不會走，不會真的建立會議或寄信。</p>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>03</span><h2>路線 A：新預約</h2></div>
+    <p>下面的 <code>{{欄位}}</code> 代表「從 Webhooks 模組點選同名欄位」。在 Make 欄位裡把它換成點選出來的資料。</p>
+
+    <div class="mod">
+      <div class="mod-h"><span class="tag">A1</span><strong>Google Calendar → Create an Event</strong><small>建立會議與 Meet</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>Calendar</th><td>你的主要日曆</td></tr>
+        <tr><th>Event name</th><td><code>AI 適性評估｜{{company}}｜{{name}}</code></td></tr>
+        <tr><th>Start date</th><td><code>{{start}}</code>（已含台灣時區）</td></tr>
+        <tr><th>End date</th><td><code>{{end}}</code></td></tr>
+        <tr><th>Attendees</th><td>Email：<code>{{email}}</code></td></tr>
+        <tr><th>Google Meet</th><td>找到 Google Meet／Conference（會議）相關選項，設成「建立 Google Meet 會議」</td></tr>
+        <tr><th>Send updates</th><td>All（Google 會寄日曆邀請給客戶，裡面也有 Meet 連結）</td></tr>
+        <tr><th>Description</th><td>用下面的範本。客戶看得到這段，所以不要放內部資料。</td></tr>
+      </table></div>
+      <div class="tpl"><div class="tpl-bar">日曆說明（客戶看得到）<button class="copy" type="button">複製</button></div><pre>多明哥 AI 筆記｜AI 導入適性評估（線上 30 分鐘）
+
+請在時間到時點上方的 Google Meet 連結加入。
+不用準備資料，聊天就好。需要改時間，回覆確認信即可。
+
+{{site}}</pre></div>
+    </div>
+
+    <div class="mod">
+      <div class="mod-h"><span class="tag">A2</span><strong>Gmail → Send an email</strong><small>確認信寄給客戶</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>To</th><td><code>{{email}}</code></td></tr>
+        <tr><th>Subject</th><td><code>【預約成功】{{slot_label}} AI 導入適性評估（線上 30 分鐘）</code></td></tr>
+        <tr><th>Content</th><td>下面的範本。<code>{{A1 的 Meet 連結}}</code> 從 A1 的輸出點選，欄位名稱通常是 <b>Hangout link</b>（或 Conference data 裡的 URI）。</td></tr>
+      </table></div>
+      <div class="tpl"><div class="tpl-bar">確認信內容<button class="copy" type="button">複製</button></div><pre>{{name}} 您好，
+
+謝謝預約多明哥 AI 筆記的「AI 導入適性評估」，時間已經幫您保留：
+
+時間：{{slot_label}}（台灣時間，30 分鐘）
+會議連結：{{A1 的 Meet 連結}}
+
+Google 日曆邀請也已經寄到這個信箱，按「接受」就會出現在您的行事曆。
+
+會前可以先想想這三件事，不用準備資料：
+1. 公司裡最花時間、每天重複在做的一件事
+2. 這件事現在用哪些工具處理（LINE、Excel、紙本……）
+3. 如果它不用人做，您最想把多出來的時間拿來做什麼
+
+需要改時間，直接回覆這封信就可以。
+
+多明哥 AI 筆記｜John
+{{site}}</pre></div>
+    </div>
+
+    <div class="mod">
+      <div class="mod-h"><span class="tag">A3</span><strong>Anthropic Claude → Create a Prompt</strong><small>寫會前摘要</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>Connection</th><td>Create a connection → 貼上 Anthropic API 金鑰</td></tr>
+        <tr><th>Model</th><td>清單裡最新的 Sonnet 模型</td></tr>
+        <tr><th>Max tokens</th><td><code>1024</code></td></tr>
+        <tr><th>Prompt／Message</th><td>下面的提示詞（Role 選 User）</td></tr>
+      </table></div>
+      <div class="tpl"><div class="tpl-bar">Claude 提示詞<button class="copy" type="button">複製</button></div><pre>你是「多明哥 AI 筆記」的會前助理。John 是中小企業 AI 自動化導入顧問，接下來要和下面這位客戶開 30 分鐘線上評估。請根據客戶的預約資料，用繁體中文（台灣用語）寫一份給 John 自己看的會前摘要。
+
+客戶資料：
+- 公司：{{company}}（{{size}}，{{industry}}）
+- 聯絡人：{{name}}
+- 想解決的問題：{{needs_text}}
+- 團隊用 AI 的程度：{{ai_level}}
+- 補充說明：{{note}}
+- 診斷分數：{{score}} 分（適性：{{score_level}}）
+- 五題分數（依序為重複度、規則清楚、資料數位化、團隊意願、決策速度，每題 0–10）：{{quiz}}
+
+請照這個格式，總長 300 字以內，不要客套話：
+1. 一句話看狀況
+2. 最可能先做的 1–2 個流程，以及為什麼
+3. 會中要確認的 3 個問題
+4. 可能的卡點或風險
+資料不足以判斷的地方，直接寫「資料不足」，不要自己編。</pre></div>
+      <div class="note tip"><b>Claude 出錯時不要卡住後面。</b>在 A3 模組上按右鍵 → Add error handler → <b>Resume</b>，替代文字填「（會前摘要產生失敗，請直接看預約資料）」。這樣就算 Claude 暫時沒回應，A4、A5 還是會照常執行。</div>
+    </div>
+
+    <div class="mod">
+      <div class="mod-h"><span class="tag">A4</span><strong>Gmail → Send an email</strong><small>會前摘要寄給你</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>To</th><td>你自己的信箱</td></tr>
+        <tr><th>Subject</th><td><code>【會前摘要】{{slot_label}}｜{{company}}｜{{score_level}}</code></td></tr>
+        <tr><th>Content</th><td>下面的範本。<code>{{A3 的文字}}</code> 從 Claude 模組輸出點選（通常叫 Text 或 Content → Text）。</td></tr>
+      </table></div>
+      <div class="tpl"><div class="tpl-bar">摘要信內容<button class="copy" type="button">複製</button></div><pre>{{slot_label}}｜{{company}}｜{{name}}
+Meet：{{A1 的 Meet 連結}}
+
+—— Claude 會前摘要 ——
+{{A3 的文字}}
+
+—— 客戶填寫的內容 ——
+規模／產業：{{size}}／{{industry}}
+想解決：{{needs_text}}
+用 AI 的程度：{{ai_level}}
+補充：{{note}}
+診斷：{{score}} 分（{{score_level}}），各題 {{quiz}}
+聯絡：{{email}}　{{phone}}
+
+後台：{{admin_url}}</pre></div>
+    </div>
+
+    <div class="mod">
+      <div class="mod-h"><span class="tag">A5</span><strong>HTTP → Make a request</strong><small>寫回網站</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>URL</th><td><code>{{callback_url}}</code></td></tr>
+        <tr><th>Method</th><td>POST</td></tr>
+        <tr><th>Headers</th><td>Name：<code>X-Domingo-Secret</code>　Value：<code>{{secret}}</code></td></tr>
+        <tr><th>Body type</th><td>application/x-www-form-urlencoded</td></tr>
+        <tr><th>Fields</th><td><code>meet_url</code> = A1 的 Meet 連結<br><code>event_id</code> = A1 的 Event ID（欄位叫 ID）<br><code>summary</code> = A3 的文字</td></tr>
+      </table></div>
+      <p>成功後，後台那筆預約會出現 Meet 連結和 Claude 摘要，狀態自動從「新預約」變成「已確認」。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>04</span><h2>路線 B：取消</h2></div>
+    <p>你在後台把預約狀態改成「已取消」並儲存時，網站會送出 <code>event = cancelled</code>，並帶著當初的 <code>event_id</code>。</p>
+    <div class="mod">
+      <div class="mod-h"><span class="tag">B1</span><strong>Google Calendar → Delete an Event</strong></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>Event ID</th><td><code>{{event_id}}</code></td></tr>
+        <tr><th>Send updates</th><td>All（Google 會通知客戶會議取消）</td></tr>
+      </table></div>
+    </div>
+    <div class="mod">
+      <div class="mod-h"><span class="tag">B2</span><strong>Gmail → Send an email</strong><small>取消信寄給客戶</small></div>
+      <div class="tblwrap"><table class="fields">
+        <tr><th>To</th><td><code>{{email}}</code></td></tr>
+        <tr><th>Subject</th><td><code>【已取消】{{slot_label}} AI 導入適性評估</code></td></tr>
+      </table></div>
+      <div class="tpl"><div class="tpl-bar">取消信內容<button class="copy" type="button">複製</button></div><pre>{{name}} 您好，
+
+{{slot_label}} 的線上評估已經取消，Google 日曆上的會議也一併移除。
+
+想重新安排的話，可以到這裡選新的時間：
+{{site}}booking/
+
+多明哥 AI 筆記｜John</pre></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>05</span><h2>開啟並實測</h2></div>
+    <ol class="steps">
+      <li>右下角排程設為 <b>Immediately as data arrives</b>，把情境開關切到 <b>ON</b>，按 Save。</li>
+      <li>用手機到 domingoai.com 做一次真的預約，Email 填你自己的另一個信箱。</li>
+    </ol>
+    <ul class="check" aria-label="實測檢查清單">
+      <li>收到 Google 日曆邀請，裡面有 Meet 連結</li>
+      <li>收到「預約成功」確認信，Meet 連結點得開</li>
+      <li>你的信箱收到「會前摘要」</li>
+      <li>後台「預約」這筆出現 Meet 連結，狀態是「已確認」</li>
+      <li>把這筆改成「已取消」：日曆會議消失、收到取消信、預約頁那個時段重新開放</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>06</span><h2>出問題時看哪裡</h2></div>
+    <div class="tblwrap"><table class="fields">
+      <tr><th>後台「會議」欄顯示「送出失敗，會自動重試」</th><td>網站送不到 Make。確認情境是 ON、網址沒貼錯。網站會在 5 分鐘、10 分鐘後各重試一次。</td></tr>
+      <tr><th>Make 有收到，但日曆沒建立</th><td>打開 Make 的 History 看是哪個模組紅色。最常見的是 Google 連線過期，重新連一次。</td></tr>
+      <tr><th>Gmail 連線每 7 天就斷</th><td>Google Cloud 的 OAuth 同意畫面還在「Testing」狀態。到 Google Auth Platform → Audience 按 Publish app 改成正式版（自己用不需要送審）。</td></tr>
+      <tr><th>後台沒出現 Meet 連結</th><td>檢查 A5 的 Header 名稱是 <code>X-Domingo-Secret</code>，值是點選 <code>secret</code>，不是手打。</td></tr>
+      <tr><th>次數快用完</th><td>每筆預約約 6 次操作。免費方案每月 1,000 次，大約 160 筆預約。</td></tr>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>A</span><h2>附錄 A：@gmail.com 連 Gmail 模組</h2></div>
+    <ol class="steps">
+      <li>到 console.cloud.google.com 建立新專案，名稱例如「Make 寄信」。</li>
+      <li>APIs &amp; Services → Library，搜尋 <b>Gmail API</b> → Enable。</li>
+      <li>OAuth consent screen（Google Auth Platform）：類型選 <b>External</b>；應用程式名稱填「Make」；支援信箱和開發者聯絡信箱填你自己；Authorized domains 加 <code>make.com</code> 和 <code>integromat.com</code>。</li>
+      <li>Scopes 加入 <code>https://mail.google.com/</code>。</li>
+      <li>Test users 加入你要連的 Gmail 地址（這步沒做會連不上）。</li>
+      <li>Credentials → Create credentials → OAuth client ID → 類型 <b>Web application</b>；Authorized redirect URIs 加 <code>https://www.integromat.com/oauth/cb/google-restricted</code>。</li>
+      <li>建立後會看到 Client ID 和 Client Secret。直接到 Make 的 Gmail 模組 → Add connection → Show advanced settings 貼上，不要存到任何檔案或對話。</li>
+      <li>登入 Google 時如果看到「這個應用程式未經驗證」，按「進階」→「前往 Make」→ 允許。</li>
+      <li>最後到 Audience 按 <b>Publish app</b>，避免連線 7 天後失效。</li>
+    </ol>
+    <div class="note tip">Make 的介面偶爾會改名稱或位置。如果找不到某個選項，以 Make 官方說明「Connecting to Google services using a custom OAuth client」為準。</div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>B</span><h2>附錄 B：網站送給 Make 的欄位</h2></div>
+    <div class="tblwrap"><table class="fields">
+      <tr><th><code>event</code></th><td><code>created</code> 新預約／<code>cancelled</code> 取消／<code>test</code> 測試</td></tr>
+      <tr><th><code>booking_id</code></th><td>後台預約編號</td></tr>
+      <tr><th><code>name</code>、<code>company</code>、<code>email</code>、<code>phone</code></th><td>聯絡資料（電話可能空白）</td></tr>
+      <tr><th><code>size</code>、<code>industry</code></th><td>公司規模、產業</td></tr>
+      <tr><th><code>needs_text</code></th><td>想解決的問題，用「、」串起來（<code>needs</code> 是清單版本）</td></tr>
+      <tr><th><code>ai_level</code>、<code>note</code></th><td>用 AI 的程度、補充說明（可能空白）</td></tr>
+      <tr><th><code>score</code>、<code>score_level</code>、<code>quiz</code></th><td>診斷分數、高／中／待準備、五題分數如 <code>9-9-6-9-9</code>。沒做診斷時 <code>score</code> 是空的，<code>score_level</code> 是「沒有做診斷」</td></tr>
+      <tr><th><code>slot_label</code></th><td>給人看的時間，例如 <code>10/14（三） 14:30</code></td></tr>
+      <tr><th><code>start</code>、<code>end</code></th><td>給日曆用的時間，例如 <code>2026-10-14T14:30:00+08:00</code></td></tr>
+      <tr><th><code>event_id</code>、<code>meet_url</code></th><td>Make 寫回後才有，取消時會帶上</td></tr>
+      <tr><th><code>callback_url</code>、<code>secret</code></th><td>A5 寫回網站用，原樣點選即可</td></tr>
+      <tr><th><code>admin_url</code>、<code>site</code></th><td>後台這筆預約的網址、網站首頁</td></tr>
+    </table></div>
+  </section>
+
+  <footer>多明哥 AI 筆記｜domingoai.com 預約自動化（第 5 階段）</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tpl').forEach(function (box) {
+  var btn = box.querySelector('button.copy');
+  var pre = box.querySelector('pre');
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = '複製'; }, 1800); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(pre);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      done('已選取，請按複製');
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done('已複製'); }, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  });
+});
+</script>

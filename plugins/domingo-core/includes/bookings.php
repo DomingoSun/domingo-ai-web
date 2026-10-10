@@ -289,7 +289,7 @@ function domingo_booking_status_box( $post ) {
 		printf( '<option value="%s" %s>%s</option>', esc_attr( $k ), selected( $st ? $st : 'new', $k, false ), esc_html( $label ) );
 	}
 	echo '</select></p>';
-	echo '<p class="description">改成「已取消」，這個時段會重新開放給別人預約。</p>';
+	echo '<p class="description">改成「已取消」，這個時段會重新開放給別人預約；有設定自動化時，也會通知 Make 刪除會議、寄取消信給客戶。</p>';
 	printf(
 		'<p><label for="dm-internal"><strong>內部備註</strong>（客戶看不到）</label><textarea id="dm-internal" name="dm_internal" rows="4" style="width:100%%">%s</textarea></p>',
 		esc_textarea( get_post_meta( $post->ID, '_dm_internal', true ) )
