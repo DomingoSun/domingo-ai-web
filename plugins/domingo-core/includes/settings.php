@@ -178,6 +178,7 @@ function domingo_render_settings_page() {
 	?>
 	<div class="wrap">
 		<h1>多明哥網站設定</h1>
+		<?php domingo_render_setup_box(); ?>
 		<p>這裡的內容會直接顯示在首頁。改完按最下面的「儲存設定」。</p>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'domingo_settings_group' ); ?>

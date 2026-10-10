@@ -22,6 +22,9 @@
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 body { -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 h1, h2, h3 { text-wrap: balance; }
+/* 中文標題只在 <wbr>、空白、標點處換行，避免「也卡／在這」這種斷法 */
+.dm-sec-h, .dm-h1, .dm-h1-serif { word-break: keep-all; overflow-wrap: anywhere; }
+.dm-hero-sub, .dm-sec-sub, .dm-card-p, .dm-job-p { text-wrap: pretty; }
 :where(a, button, summary):focus-visible { outline: 2px solid var(--dm-lime); outline-offset: 3px; }
 .dm-main { margin-block-start: 0; }
 .dm-main > * { margin-block-start: 0; }
@@ -36,7 +39,9 @@ h1, h2, h3 { text-wrap: balance; }
 .dm-btn-sm .wp-block-button__link { padding: .65rem 1.4rem; font-size: .9rem; }
 
 /* ---------- 頁首 ---------- */
-.dm-header { position: sticky; top: 0; z-index: 100; background: rgba(5,19,17,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.dm-header { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,.06); }
+/* 模糊背景放在 ::before：直接放在頁首會讓手機選單（position: fixed）被關在頁首裡 */
+.dm-header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(5,19,17,.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .admin-bar .dm-header { top: var(--wp-admin--admin-bar--height, 32px); }
 .dm-header-inner { min-height: 72px; gap: 1.25rem; }
 .dm-logo { font-family: var(--wp--preset--font-family--body); font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; margin: 0; white-space: nowrap; }
@@ -45,11 +50,20 @@ h1, h2, h3 { text-wrap: balance; }
 .dm-nav .wp-block-navigation-item__content { color: rgba(255,255,255,.62); padding: 8px 12px; border-radius: 8px; }
 .dm-nav .wp-block-navigation-item__content:hover { color: #fff; background: rgba(255,255,255,.06); }
 .dm-header-cta .wp-block-button__link { padding: .6rem 1.3rem; font-size: .88rem; white-space: nowrap; }
-.dm-nav .wp-block-navigation__responsive-container.is-menu-open { background: rgba(5,19,17,.98); color: #fff; }
-@media (max-width: 781px) {
-	.dm-header .dm-header-cta { display: none !important; }
-	.dm-hero-sub { font-size: 1rem; }
-}
+.dm-nav .dm-nav-cta { display: none; }
+@media (max-width: 599px) { .dm-nav .wp-block-navigation__responsive-container-open { width: 44px; height: 44px; display: grid; place-items: center; } }
+
+/* 手機選單：全螢幕、左對齊、大字，最下面是預約按鈕 */
+.dm-nav .wp-block-navigation__responsive-container.is-menu-open { background: #030b0a !important; color: #fff !important; padding: 1rem 24px calc(2rem + env(safe-area-inset-bottom)); }
+.dm-nav .is-menu-open .wp-block-navigation__responsive-close { width: 100%; max-width: none; }
+.dm-nav .is-menu-open .wp-block-navigation__responsive-container-close { color: #fff; width: 44px; height: 44px; display: grid; place-items: center; top: 14px; right: 0; }
+.dm-nav .is-menu-open .wp-block-navigation__responsive-container-content { padding-top: 4.5rem !important; align-items: stretch !important; }
+.dm-nav .is-menu-open .wp-block-navigation__container { width: 100%; gap: 0 !important; align-items: stretch !important; }
+.dm-nav .is-menu-open .wp-block-navigation-item { width: 100%; }
+.dm-nav .is-menu-open .wp-block-navigation-item__content { display: block; width: 100%; padding: 1rem 0 !important; font-size: 1.3rem; font-weight: 700; color: #fff !important; border-bottom: 1px solid rgba(255,255,255,.08); border-radius: 0; }
+.dm-nav .is-menu-open .dm-nav-cta { display: block; margin-top: 2rem; }
+.dm-nav .is-menu-open .dm-nav-cta .wp-block-navigation-item__content { text-align: center; background: var(--dm-lime); color: #000 !important; border: 0; border-radius: 99px; padding: 1rem !important; font-size: 1.05rem; font-weight: 900; box-shadow: var(--dm-glow-lime); }
+
 
 /* ---------- 區塊共用 ---------- */
 .dm-section { padding-block: var(--wp--preset--spacing--60); }
@@ -192,6 +206,80 @@ h1, h2, h3 { text-wrap: balance; }
 .dm-footer-links li:not(:has(a)) { color: #8a8a8a; }
 .dm-footer-bottom { border-top: 1px solid var(--dm-line); padding-block: 1.25rem; font-size: .8rem; color: #8a8a8a; }
 .dm-footer-bottom p { margin: 0; }
+
+/* ---------- 手機底部固定預約鈕 ---------- */
+.dm-mcta { display: none; }
+@media (max-width: 781px) {
+	.dm-mcta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; margin: 0 !important; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(3,11,10,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,.08); transform: translateY(110%); transition: transform .3s ease; }
+	.dm-mcta.is-on { transform: translateY(0); }
+	.dm-mcta .wp-block-buttons, .dm-mcta .wp-block-button { width: 100%; margin: 0; }
+	.dm-mcta .wp-block-button__link { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 50px; padding: .75rem 1rem; font-weight: 900; }
+}
+
+/* ============================================================
+   手機版（781px 以下，WordPress 欄位會在這個寬度變成上下排）
+   ============================================================ */
+@media (max-width: 781px) {
+	.dm-only-wide { display: none; }
+	.dm-header-inner { min-height: 64px; }
+	.dm-header .dm-header-cta { display: none !important; }
+
+	/* 區塊間距縮小約三成 */
+	.dm-section { padding-block: 3.25rem; }
+	.dm-section.is-compact { padding-block: 2.25rem; }
+	.dm-section > .alignwide:not(:first-child), .dm-section > .wp-block-group:not(:first-child) { margin-top: 1.75rem; }
+	.dm-sec-sub { font-size: 1rem; }
+
+	/* 首屏：按鈕滿版上下排、第一屏就看得到 */
+	.dm-hero { padding-block: 1.75rem 3rem; }
+	.dm-hero-cols { gap: 2.25rem; }
+	.dm-hero-copy { padding-top: 0; }
+	.dm-h1 { margin-top: 1rem; line-height: 1.3; }
+	.dm-hero-sub { font-size: 1rem; line-height: 1.8; }
+	.dm-hero-sub br { display: none; }
+	.dm-hero-btns { flex-direction: column; align-items: stretch; margin-top: 1.5rem; gap: .75rem; max-width: 440px; }
+	.dm-hero-btns .wp-block-button { width: 100%; }
+	.dm-hero-btns .wp-block-button__link { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 52px; }
+
+	/* 數據條 */
+	.dm-stats { padding-block: 1.5rem; }
+	.dm-stat { padding: .25rem .5rem; }
+	.dm-stat-n { font-size: 1.85rem; }
+	.dm-stat-n small { font-size: .85rem; }
+	.dm-stat-l { font-size: .8rem; }
+
+	/* 痛點卡片 */
+	.dm-cards { gap: .75rem; }
+	.dm-card { padding: 1.35rem 1.4rem; }
+	.dm-card-p { font-size: .9rem; line-height: 1.75; }
+	.dm-card .wp-block-buttons, .dm-card .wp-block-button, .dm-card .wp-block-button__link { width: 100%; }
+	.dm-card .wp-block-button__link { display: flex; justify-content: center; min-height: 50px; align-items: center; }
+
+	/* 數位員工：整齊兩欄，最後一張若落單就滿版 */
+	.dm-jobs { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+	.dm-job { max-width: none; padding: 1.25rem .9rem; display: flex; flex-direction: column; justify-content: center; }
+	.dm-job:last-child:nth-child(odd) { grid-column: 1 / -1; }
+	.dm-job-h { font-size: .98rem; }
+
+	/* 方案 */
+	.dm-plans { gap: 1.75rem; }
+	.dm-plan { padding: 1.6rem 1.4rem; }
+
+	/* 常見問題 */
+	.dm-faq { gap: 1.5rem; }
+	.dm-faq-item summary { min-height: 44px; align-items: center; }
+
+	/* 預約頁 */
+	.dm-booking { padding-block: 1.25rem 3rem; }
+	.dm-booking-cols { gap: 1.25rem; }
+	.dm-booking .dm-h1-serif { font-size: 2rem; }
+
+	/* 頁尾：品牌與聯絡各一整行，導覽與社群並排 */
+	.dm-footer { padding-block: 3rem 0; }
+	.dm-footer-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.25rem; padding-bottom: 2rem; }
+	.dm-footer-grid > .wp-block-column { flex-basis: auto !important; }
+	.dm-footer-grid > .wp-block-column:nth-child(-n+2) { grid-column: 1 / -1; }
+}
 
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { animation: none !important; transition: none !important; }

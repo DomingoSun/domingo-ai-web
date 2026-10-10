@@ -18,7 +18,7 @@ if ( ! $domingo_items ) {
 }
 ?>
 <section <?php echo get_block_wrapper_attributes( array( 'class' => 'dm-testi' ) ); // phpcs:ignore ?>>
-	<h2 class="dm-testi-h">上過課、導入過的人怎麼說</h2>
+	<h2 class="dm-testi-h">上過課、<wbr>導入過的人<wbr>怎麼說</h2>
 	<div class="dm-mq is-light">
 		<div class="dm-mq-track is-left is-slow">
 			<?php foreach ( array( 0, 1 ) as $copy ) : foreach ( $domingo_items as $t ) : ?>

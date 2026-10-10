@@ -150,6 +150,9 @@
 		var book = root.querySelector( '[data-book]' );
 		var bookBase = root.getAttribute( 'data-booking' ) || '/booking/';
 		var current = new Array( n ).fill( 0 );
+		var mprog = root.querySelector( '[data-mprog]' );
+		var mbar = root.querySelector( '[data-mbar]' );
+		var narrow = window.matchMedia ? window.matchMedia( '(max-width: 900px)' ) : { matches: false };
 
 		function point( i, r ) {
 			var a = ( -90 + ( 360 / n ) * i ) * Math.PI / 180;
@@ -201,6 +204,10 @@
 			var done = answers.filter( function ( a ) { return a >= 0; } ).length;
 			progress.textContent = done + ' / ' + n;
 			left.textContent = n - done;
+			if ( mprog ) {
+				mprog.textContent = done;
+				mbar.style.width = ( done / n * 100 ) + '%';
+			}
 			animateTo( scores );
 
 			if ( done === n ) {
@@ -217,6 +224,12 @@
 				var wasHidden = result.hidden;
 				result.hidden = false;
 				setGauge( result.querySelector( '.dm-gauge' ), total, wasHidden );
+				/* 手機上結果在題目下方：做完自動捲過去 */
+				if ( wasHidden && narrow.matches ) {
+					setTimeout( function () {
+						result.scrollIntoView( { behavior: reduced ? 'auto' : 'smooth', block: 'center' } );
+					}, 250 );
+				}
 			} else {
 				wait.hidden = false;
 				result.hidden = true;

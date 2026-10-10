@@ -12,11 +12,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","className":"dm-sec-h"} -->
-<h2 class="wp-block-heading has-text-align-center dm-sec-h">1 分鐘 AI 適性診斷</h2>
+<h2 class="wp-block-heading has-text-align-center dm-sec-h">1 分鐘 <wbr>AI 適性診斷</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","className":"dm-sec-sub"} -->
-<p class="has-text-align-center dm-sec-sub">點選答案，右邊的雷達圖會即時長出來。</p>
+<p class="has-text-align-center dm-sec-sub">點選答案，<span class="dm-only-wide">右邊的</span>雷達圖會即時長出來。</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:domingo/quiz {"align":"wide"} /--></section>

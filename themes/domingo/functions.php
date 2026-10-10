@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DOMINGO_VERSION', '0.1.0' );
+define( 'DOMINGO_VERSION', '0.2.0' );
 
 /**
  * Google Fonts（Noto Sans TC／Noto Serif TC）。之後可改成主機本地字型以加快速度。
@@ -25,6 +25,16 @@ add_action(
 			get_theme_file_uri( 'assets/css/theme.css' ),
 			array(),
 			DOMINGO_VERSION
+		);
+		wp_enqueue_script(
+			'domingo-theme',
+			get_theme_file_uri( 'assets/js/theme.js' ),
+			array(),
+			DOMINGO_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
 	}
 );

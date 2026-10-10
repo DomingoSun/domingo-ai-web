@@ -8,6 +8,7 @@ domingoai.com 的 WordPress 主題與設計原型。網站的目的：讓企業�
 |---|---|
 | `themes/domingo/` | WordPress 區塊主題（佈景主題）。部署到 `wp-content/themes/domingo/` |
 | `plugins/domingo-core/` | 網站功能外掛：互動區塊、後台「網站設定」與「評論」。部署到 `wp-content/plugins/domingo-core/`，換主題也不會不見 |
+| `scripts/` | 打包上傳用壓縮檔的小工具 |
 | `prototype/` | 設計定稿的 React 原型，只當作設計參考，不會部署到網站 |
 
 ## 主題結構（themes/domingo）
@@ -36,6 +37,16 @@ domingoai.com 的 WordPress 主題與設計原型。網站的目的：讓企業�
 - [ ] 第 6 階段：SEO／AI 搜尋設定
 - [ ] 第 7 階段：Claude Code 串接（WordPress MCP）
 - [ ] 第 8 階段：上線前檢查
+
+## 放上 domingoai.com
+
+1. `python3 scripts/build-zips.py` 產生 `dist/domingo-core.zip` 和 `dist/domingo.zip`
+2. 後台「外掛 → 安裝外掛 → 上傳外掛」上傳 `domingo-core.zip` 並啟用
+3. 後台「外觀 → 佈景主題 → 新增 → 上傳佈景主題」上傳 `domingo.zip` 並啟用
+4. 後台「網站設定」按「開始初始設定」（建立頁面、首頁、網址格式、時區）
+5. 清除 Breeze 快取
+
+更新時重複 1–3（上傳同名檔案時選「以上傳的版本取代」），再清快取。
 
 ## 預約 API
 

@@ -18,7 +18,7 @@ $domingo_jobs = array(
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","className":"dm-sec-h"} -->
-<h2 class="wp-block-heading has-text-align-center dm-sec-h">數位員工可以接手的工作</h2>
+<h2 class="wp-block-heading has-text-align-center dm-sec-h">數位員工<wbr>可以接手的工作</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","className":"dm-sec-sub"} -->

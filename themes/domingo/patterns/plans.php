@@ -46,7 +46,7 @@ $domingo_plans = array(
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","className":"dm-sec-h"} -->
-<h2 class="wp-block-heading has-text-align-center dm-sec-h">三種合作方式，從你需要的開始</h2>
+<h2 class="wp-block-heading has-text-align-center dm-sec-h">三種合作方式，<wbr>從你需要的開始</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","className":"dm-sec-sub"} -->

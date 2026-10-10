@@ -21,6 +21,7 @@ $domingo_book  = home_url( '/booking/' );
 	data-advice-mid="<?php echo esc_attr( $domingo_s['advice_mid'] ); ?>"
 	data-advice-low="<?php echo esc_attr( $domingo_s['advice_low'] ); ?>">
 	<div class="dm-quiz-qs">
+		<div class="dm-quiz-sticky" aria-hidden="true"><span>已答 <b class="dm-num" data-mprog>0</b> / <?php echo (int) $domingo_n; ?> 題</span><span class="dm-quiz-sticky-bar"><i data-mbar></i></span></div>
 		<?php foreach ( $domingo_quiz as $i => $q ) : ?>
 			<fieldset class="dm-quiz-q" data-q="<?php echo (int) $i; ?>">
 				<legend><span class="dm-qn"><?php echo (int) $i + 1; ?></span><?php echo esc_html( $q['question'] ); ?></legend>

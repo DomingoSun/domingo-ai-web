@@ -14,7 +14,7 @@ $domingo_pains = array(
 ?>
 <!-- wp:group {"tagName":"section","className":"dm-section dm-light","layout":{"type":"constrained"}} -->
 <section class="wp-block-group dm-section dm-light"><!-- wp:heading {"textAlign":"center","className":"dm-sec-h"} -->
-<h2 class="wp-block-heading has-text-align-center dm-sec-h">你是不是也卡在這幾件事？</h2>
+<h2 class="wp-block-heading has-text-align-center dm-sec-h">你是不是<wbr>也卡在<wbr>這幾件事？</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","className":"dm-sec-sub"} -->
