@@ -1,0 +1,132 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{ "slug": "ink", "name": "黑底", "color": "#000000" },
+				{ "slug": "panel", "name": "深色面板", "color": "#0b1715" },
+				{ "slug": "teal-darker", "name": "深藍綠", "color": "#051311" },
+				{ "slug": "teal-dark", "name": "暗藍綠", "color": "#0f2c29" },
+				{ "slug": "teal", "name": "藍綠（主色）", "color": "#0d9488" },
+				{ "slug": "teal-mid", "name": "藍綠（按下）", "color": "#0a7a70" },
+				{ "slug": "teal-bright", "name": "亮藍綠", "color": "#14b8a6" },
+				{ "slug": "mint", "name": "薄荷綠文字", "color": "#5eead4" },
+				{ "slug": "lime", "name": "萊姆綠（強調）", "color": "#C8FF00" },
+				{ "slug": "paper", "name": "白", "color": "#FFFFFF" },
+				{ "slug": "cream", "name": "米白", "color": "#FDFBF7" },
+				{ "slug": "cream-line", "name": "米白邊線", "color": "#e8e3da" },
+				{ "slug": "text-dark", "name": "深色文字", "color": "#111111" },
+				{ "slug": "text-mute", "name": "灰色文字", "color": "#6b6b6b" },
+				{ "slug": "line", "name": "深色邊線", "color": "#1f1f1f" }
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"slug": "body",
+					"name": "Noto Sans TC",
+					"fontFamily": "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif"
+				},
+				{
+					"slug": "display",
+					"name": "Noto Serif TC",
+					"fontFamily": "'Noto Serif TC', 'Songti TC', 'PMingLiU', serif"
+				}
+			],
+			"fontSizes": [
+				{ "slug": "x-small", "name": "很小", "size": "0.8rem", "fluid": false },
+				{ "slug": "small", "name": "小", "size": "0.9rem", "fluid": false },
+				{ "slug": "medium", "name": "內文", "size": "1.0625rem", "fluid": false },
+				{ "slug": "large", "name": "大", "size": "1.35rem", "fluid": { "min": "1.15rem", "max": "1.35rem" } },
+				{ "slug": "x-large", "name": "區塊標題", "size": "3rem", "fluid": { "min": "1.9rem", "max": "3rem" } },
+				{ "slug": "xx-large", "name": "主標", "size": "3.3rem", "fluid": { "min": "2rem", "max": "3.3rem" } }
+			]
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"units": [ "px", "rem", "%", "vw" ],
+			"spacingSizes": [
+				{ "slug": "20", "name": "XS", "size": "0.5rem" },
+				{ "slug": "30", "name": "S", "size": "1rem" },
+				{ "slug": "40", "name": "M", "size": "1.5rem" },
+				{ "slug": "50", "name": "L", "size": "clamp(2rem, 4vw, 3rem)" },
+				{ "slug": "60", "name": "XL", "size": "clamp(4.5rem, 8vw, 6rem)" }
+			]
+		},
+		"layout": {
+			"contentSize": "760px",
+			"wideSize": "1200px"
+		},
+		"custom": {
+			"radius": "1.25rem",
+			"glowTeal": "0 0 24px rgba(13,148,136,.45)",
+			"glowLime": "0 0 28px rgba(200,255,0,.35)"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--ink)",
+			"text": "var(--wp--preset--color--paper)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)",
+			"fontSize": "var(--wp--preset--font-size--medium)",
+			"lineHeight": "1.75"
+		},
+		"spacing": {
+			"padding": {
+				"left": "max(16px, 1.5rem)",
+				"right": "max(16px, 1.5rem)"
+			},
+			"blockGap": "1rem"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "900",
+					"lineHeight": "1.25"
+				}
+			},
+			"link": {
+				"color": { "text": "inherit" },
+				"typography": { "textDecoration": "none" }
+			},
+			"button": {
+				"border": { "radius": "99px" },
+				"color": {
+					"background": "var(--wp--preset--color--teal)",
+					"text": "var(--wp--preset--color--paper)"
+				},
+				"typography": { "fontWeight": "700", "fontSize": "1rem" },
+				"spacing": { "padding": { "top": "0.85rem", "bottom": "0.85rem", "left": "2rem", "right": "2rem" } },
+				":hover": {
+					"color": { "background": "var(--wp--preset--color--teal-mid)" }
+				}
+			}
+		},
+		"blocks": {
+			"core/navigation": {
+				"typography": { "fontSize": "0.9rem", "fontWeight": "500" }
+			},
+			"core/post-title": {
+				"typography": { "fontFamily": "var(--wp--preset--font-family--display)", "fontWeight": "900" }
+			}
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "頁首", "area": "header" },
+		{ "name": "footer", "title": "頁尾", "area": "footer" }
+	],
+	"customTemplates": [
+		{ "name": "page-booking", "title": "預約頁", "postTypes": [ "page" ] }
+	]
+}

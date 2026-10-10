@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.parcel-cache/
+bundle.html
+*.log
+.DS_Store
+# 不要把任何密碼、權杖放進 repo，一律用環境變數
+.env
+.env.*
+wp-config.php

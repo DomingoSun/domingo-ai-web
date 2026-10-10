@@ -1,0 +1,59 @@
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"dm-main","layout":{"type":"default"}} -->
+<main class="wp-block-group dm-main"><!-- wp:group {"tagName":"section","className":"dm-notes-head","layout":{"type":"constrained"}} -->
+<section class="wp-block-group dm-notes-head"><!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"className":"dm-eyebrow is-lime"} -->
+<p class="dm-eyebrow is-lime">AI NOTES</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1,"className":"dm-h1-serif"} -->
+<h1 class="wp-block-heading dm-h1-serif">AI 筆記</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"dm-sec-sub"} -->
+<p class="dm-sec-sub">把 AI 寫成老闆看得懂、用得上的筆記。</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","className":"dm-section dm-light is-notes","layout":{"type":"constrained"}} -->
+<section class="wp-block-group dm-section dm-light is-notes"><!-- wp:query {"queryId":1,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"align":"wide"} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"className":"dm-note-grid","layout":{"type":"grid","minimumColumnWidth":"18rem"}} -->
+<!-- wp:group {"className":"dm-note","layout":{"type":"default"}} -->
+<div class="wp-block-group dm-note"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","className":"dm-note-cover"} /-->
+
+<!-- wp:group {"className":"dm-note-body","layout":{"type":"default"}} -->
+<div class="wp-block-group dm-note-body"><!-- wp:group {"className":"dm-note-meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+<div class="wp-block-group dm-note-meta"><!-- wp:post-terms {"term":"category","className":"dm-note-cat"} /-->
+
+<!-- wp:post-date /--></div>
+<!-- /wp:group -->
+
+<!-- wp:post-title {"level":2,"isLink":true,"className":"dm-note-title"} /-->
+
+<!-- wp:post-excerpt {"excerptLength":40,"moreText":"閱讀全文 →","className":"dm-note-excerpt"} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous {"label":"上一頁"} /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next {"label":"下一頁"} /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">第一篇筆記準備中。</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query -->
+
+<!-- wp:pattern {"slug":"domingo/cta-banner"} /--></section>
+<!-- /wp:group --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"div"} /-->
