@@ -27,6 +27,16 @@ add_action(
 				'strategy'  => 'defer',
 			)
 		);
+		wp_register_script(
+			'domingo-core-booking',
+			DOMINGO_CORE_URL . 'assets/booking.js',
+			array(),
+			DOMINGO_CORE_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 		wp_register_style(
 			'domingo-core-blocks',
 			DOMINGO_CORE_URL . 'assets/blocks.css',
@@ -34,7 +44,7 @@ add_action(
 			DOMINGO_CORE_VERSION
 		);
 
-		foreach ( array( 'diagnosis-card', 'quiz', 'marquees', 'testimonials' ) as $name ) {
+		foreach ( array( 'diagnosis-card', 'quiz', 'marquees', 'testimonials', 'booking' ) as $name ) {
 			register_block_type( DOMINGO_CORE_DIR . 'blocks/' . $name );
 		}
 	}

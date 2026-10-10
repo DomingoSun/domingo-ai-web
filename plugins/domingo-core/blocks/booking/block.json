@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "domingo/booking",
+	"title": "預約表單（4 步驟＋選時段）",
+	"category": "domingo",
+	"description": "公司資料、需求、聯絡方式、選時段。時段在「網站設定 → 預約時段」修改。",
+	"textdomain": "domingo-core",
+	"supports": { "html": false, "multiple": false, "anchor": true },
+	"editorScript": "domingo-core-editor",
+	"viewScript": "domingo-core-booking",
+	"style": "domingo-core-blocks",
+	"render": "file:./render.php"
+}

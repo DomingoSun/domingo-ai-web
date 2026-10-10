@@ -7,7 +7,7 @@
 	var SSR = wp.serverSideRender;
 	var useBlockProps = wp.blockEditor.useBlockProps;
 
-	[ 'diagnosis-card', 'quiz', 'marquees', 'testimonials' ].forEach( function ( name ) {
+	[ 'diagnosis-card', 'quiz', 'marquees', 'testimonials', 'booking' ].forEach( function ( name ) {
 		wp.blocks.registerBlockType( 'domingo/' + name, {
 			edit: function ( props ) {
 				return el(
