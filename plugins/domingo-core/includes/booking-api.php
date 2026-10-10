@@ -262,11 +262,29 @@ function domingo_notify_new_booking( $post_id, $data ) {
 	);
 }
 
+/**
+ * 現在是不是預約頁。
+ */
+function domingo_is_booking_page() {
+	return is_page() && ( 'page-booking' === get_page_template_slug() || has_block( 'domingo/booking', get_queried_object() ) );
+}
+
+/* 預約頁一進來就停在最上方：在 <head> 最前面、畫面畫出來之前執行 */
+add_action(
+	'wp_head',
+	function () {
+		if ( domingo_is_booking_page() ) {
+			echo '<script id="domingo-top-guard">' . file_get_contents( DOMINGO_CORE_DIR . 'assets/top-guard.js' ) . "</script>\n"; // phpcs:ignore
+		}
+	},
+	0
+);
+
 /* 預約頁不要被快取（時段要即時） */
 add_action(
 	'template_redirect',
 	function () {
-		if ( is_page() && ( 'page-booking' === get_page_template_slug() || has_block( 'domingo/booking', get_queried_object() ) ) ) {
+		if ( domingo_is_booking_page() ) {
 			if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 				define( 'DONOTCACHEPAGE', true );
 			}

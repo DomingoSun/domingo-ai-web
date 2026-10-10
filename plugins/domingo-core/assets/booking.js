@@ -7,21 +7,6 @@
 		return;
 	}
 
-	/* 從其他頁點「預約」進來時，一律從頁面最上面開始（有些瀏覽器或 App 會沿用上一頁的捲動位置） */
-	if ( ! window.location.hash ) {
-		if ( 'scrollRestoration' in window.history ) {
-			window.history.scrollRestoration = 'manual';
-		}
-		var toTop = function () {
-			window.scrollTo( 0, 0 );
-		};
-		toTop();
-		window.addEventListener( 'load', function () {
-			toTop();
-			setTimeout( toTop, 80 );
-		} );
-	}
-
 	var api = root.getAttribute( 'data-api' );
 	var form = root.querySelector( '[data-form]' );
 	var steps = Array.prototype.slice.call( root.querySelectorAll( '[data-step]' ) );
