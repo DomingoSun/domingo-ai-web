@@ -33,11 +33,7 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"45%","className":"dm-hero-visual"} -->
-<div class="wp-block-column dm-hero-visual" style="flex-basis:45%"><!-- wp:group {"className":"dm-slot","layout":{"type":"constrained"}} -->
-<div class="wp-block-group dm-slot"><!-- wp:paragraph -->
-<p>AI 適性診斷報告卡（動態圖表）<br>第 3 階段換成互動區塊</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<div class="wp-block-column dm-hero-visual" style="flex-basis:45%"><!-- wp:domingo/diagnosis-card /--></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

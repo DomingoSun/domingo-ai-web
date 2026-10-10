@@ -19,9 +19,5 @@
 <p class="has-text-align-center dm-sec-sub">點選答案，右邊的雷達圖會即時長出來。</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:group {"align":"wide","className":"dm-slot","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide dm-slot"><!-- wp:paragraph -->
-<p>5 題診斷＋雷達圖＋分數儀表（第 3 階段換成互動區塊，題目可在後台設定）</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></section>
+<!-- wp:domingo/quiz {"align":"wide"} /--></section>
 <!-- /wp:group -->

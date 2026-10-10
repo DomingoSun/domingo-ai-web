@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "domingo/diagnosis-card",
+	"title": "AI 適性診斷報告卡",
+	"category": "domingo",
+	"description": "首頁右側的動態報告卡：分數儀表、三項分數、數位員工處理中走勢（範例畫面）。",
+	"textdomain": "domingo-core",
+	"supports": { "html": false, "align": [ "wide", "full" ], "anchor": true },
+	"editorScript": "domingo-core-editor",
+	"viewScript": "domingo-core-front",
+	"style": "domingo-core-blocks",
+	"render": "file:./render.php"
+}

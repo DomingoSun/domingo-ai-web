@@ -1,0 +1,137 @@
+/* 多明哥 AI 筆記：互動區塊樣式。顏色優先讀主題設定，主題不存在時用後備色。 */
+.dm-dash, .dm-quiz, .dm-marquees, .dm-testi {
+	--dmc-lime: var(--wp--preset--color--lime, #C8FF00);
+	--dmc-teal: var(--wp--preset--color--teal, #0d9488);
+	--dmc-teal-bright: var(--wp--preset--color--teal-bright, #14b8a6);
+	--dmc-teal-dark: var(--wp--preset--color--teal-dark, #0f2c29);
+	--dmc-mint: var(--wp--preset--color--mint, #5eead4);
+	--dmc-panel: var(--wp--preset--color--panel, #0b1715);
+	--dmc-line: #23413C;
+	--dmc-track: #1d2d2a;
+	--dmc-axis: #8fa3a0;
+	--dmc-soft: rgba(255, 255, 255, .64);
+	--dmc-radius: var(--wp--custom--radius, 1.25rem);
+	--dmc-glow-teal: 0 0 24px rgba(13, 148, 136, .45);
+	--dmc-glow-lime: 0 0 28px rgba(200, 255, 0, .35);
+}
+.dm-num { font-variant-numeric: tabular-nums; }
+
+/* ---------- 儀表 ---------- */
+.dm-gauge { width: 100%; display: block; }
+.dm-gauge-track { fill: none; stroke: var(--dmc-track); stroke-width: 14; stroke-linecap: round; }
+.dm-gauge-fill { fill: none; stroke: var(--dmc-lime); stroke-width: 14; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(200, 255, 0, .45)); }
+.dm-gauge-num { fill: #fff; font-size: 40px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.dm-gauge-cap { fill: var(--dmc-axis); font-size: 11px; }
+
+/* ---------- 診斷報告卡 ---------- */
+.dm-dash { background: var(--dmc-panel); border: 1px solid rgba(13, 148, 136, .4); border-radius: var(--dmc-radius); padding: 1.4rem; box-shadow: var(--dmc-glow-teal); display: flex; flex-direction: column; gap: 1rem; color: #fff; }
+.dm-dash-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: .95rem; }
+.dm-tag { font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--dmc-line); color: var(--dmc-axis); }
+.dm-dash-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1rem; align-items: center; }
+.dm-dash-cell { min-width: 0; }
+.dm-bars { display: flex; flex-direction: column; gap: .75rem; font-size: .86rem; }
+.dm-bar-row { display: flex; justify-content: space-between; color: rgba(255, 255, 255, .85); }
+.dm-bar-row .dm-num { color: var(--dmc-axis); }
+.dm-bar-track { height: 6px; border-radius: 3px; background: var(--dmc-track); margin-top: 6px; overflow: hidden; }
+.dm-bar-track i { display: block; height: 100%; border-radius: 3px; background: var(--dmc-teal-bright); }
+.dm-dash-rec { margin: .9rem 0 0; font-size: .86rem; color: var(--dmc-soft); padding: .6rem .75rem; border-radius: 10px; background: #050d0c; }
+.dm-dash-rec b { color: #fff; }
+.dm-feed { border-top: 1px solid var(--dmc-line); padding-top: .9rem; }
+.dm-feed-head { display: flex; align-items: center; gap: 8px; font-size: .84rem; font-weight: 700; margin-bottom: .5rem; }
+.dm-feed-head .dm-tag { margin-left: auto; }
+.dm-live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dmc-lime); animation: dmc-pulse 1.4s infinite; }
+@keyframes dmc-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .3 } }
+.dm-spark { width: 100%; height: 70px; display: block; }
+.dm-spark-area { fill: rgba(200, 255, 0, .1); }
+.dm-spark-line { fill: none; stroke: var(--dmc-lime); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.dm-spark-end { fill: var(--dmc-lime); stroke: var(--dmc-panel); stroke-width: 2; }
+.dm-feed-log { list-style: none; margin: .6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.dm-feed-log li { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; align-items: center; font-size: .82rem; color: rgba(255, 255, 255, .7); padding: 6px 10px; border-radius: 8px; background: #050d0c; border: 1px solid transparent; }
+.dm-feed-log .dm-num { color: var(--dmc-axis); }
+.dm-ok { font-size: .72rem; color: #000; background: var(--dmc-teal-bright); border-radius: 99px; padding: 1px 8px; font-weight: 700; }
+.dm-feed-log li.is-fresh { color: #fff; border-color: rgba(200, 255, 0, .25); animation: dmc-in .5s ease-out; }
+@keyframes dmc-in { from { transform: translateY(-6px); opacity: .4 } to { transform: none; opacity: 1 } }
+
+/* ---------- 1 分鐘診斷 ---------- */
+.dm-quiz { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; color: #fff; text-align: left; }
+.dm-quiz-qs { display: flex; flex-direction: column; gap: .4rem; }
+.dm-quiz-q { border: 0; padding: 0; margin: 0 0 1rem; min-width: 0; }
+.dm-quiz-q legend { display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: .6rem; padding: 0; }
+.dm-qn { width: 26px; height: 26px; border-radius: 50%; background: var(--dmc-teal-dark); border: 1px solid var(--dmc-teal); color: var(--dmc-mint); display: grid; place-items: center; font-size: .8rem; flex-shrink: 0; }
+.dm-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.dm-chip { min-height: 44px; padding: 8px 16px; border-radius: 99px; border: 1px solid #2a3b38; background: rgba(255, 255, 255, .03); color: rgba(255, 255, 255, .85); font: inherit; font-size: .9rem; cursor: pointer; transition: border-color .2s, background .2s; }
+.dm-chip:hover { border-color: rgba(200, 255, 0, .45); }
+.dm-chip[aria-pressed="true"] { background: var(--dmc-lime); color: #000; border-color: var(--dmc-lime); font-weight: 700; }
+.dm-chip:focus-visible, .dm-btn:focus-visible, .dm-btn-ghost:focus-visible { outline: 2px solid var(--dmc-lime); outline-offset: 3px; }
+.dm-viz-card { background: var(--dmc-panel); border: 1px solid rgba(13, 148, 136, .35); border-radius: var(--dmc-radius); padding: 1.4rem; position: sticky; top: 96px; }
+.dm-viz-top { display: flex; justify-content: space-between; font-weight: 700; font-size: .92rem; }
+.dm-viz-top .dm-num { color: var(--dmc-axis); }
+.dm-radar { width: 100%; max-width: 380px; display: block; margin: .4rem auto 0; }
+.dm-radar-ring, .dm-radar-axis { fill: none; stroke: var(--dmc-line); stroke-width: 1; }
+.dm-radar-ghost { fill: none; stroke: #6b7c79; stroke-width: 1.5; stroke-dasharray: 4 4; }
+.dm-radar-shape { fill: rgba(200, 255, 0, .18); stroke: var(--dmc-lime); stroke-width: 2; stroke-linejoin: round; }
+.dm-radar-dot { fill: var(--dmc-lime); stroke: var(--dmc-panel); stroke-width: 2; }
+.dm-radar-label { fill: #cfd8d6; font-size: 13px; font-weight: 700; }
+.dm-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; font-size: .8rem; color: rgba(255, 255, 255, .75); margin: .5rem 0 .25rem; }
+.dm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dm-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.dm-legend i.is-lime { background: var(--dmc-lime); }
+.dm-legend i.is-dash { border: 1.5px dashed #6b7c79; }
+.dm-quiz-wait { border-top: 1px solid var(--dmc-line); margin-top: .6rem; padding-top: .9rem; text-align: center; font-size: .86rem; color: var(--dmc-axis); }
+.dm-quiz-wait p { margin: 0; }
+.dm-quiz-result { border-top: 1px solid var(--dmc-line); margin-top: .6rem; padding-top: .9rem; text-align: center; }
+.dm-quiz-result .dm-gauge { max-width: 240px; margin: 0 auto; }
+.dm-quiz-level { margin: .25rem 0; }
+.dm-quiz-level b { color: var(--dmc-lime); font-size: 1.3rem; }
+.dm-quiz-advice { font-size: .9rem; color: var(--dmc-soft); margin: 0 0 1rem; }
+.dm-quiz-btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.dm-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.4rem; border-radius: 99px; background: var(--dmc-teal); color: #fff !important; font-weight: 700; text-decoration: none; box-shadow: var(--dmc-glow-teal); }
+.dm-btn:hover { background: var(--wp--preset--color--teal-mid, #0a7a70); }
+.dm-btn-ghost { min-height: 44px; padding: 0 1.1rem; border-radius: 99px; border: 1px solid #2a3b38; background: transparent; color: rgba(255, 255, 255, .78); font: inherit; font-size: .9rem; cursor: pointer; }
+@media (max-width: 900px) {
+	.dm-quiz { grid-template-columns: minmax(0, 1fr); }
+	.dm-viz-card { position: static; }
+}
+
+/* ---------- 跑馬燈共用 ---------- */
+.dm-mq { position: relative; overflow: hidden; --dmc-fade: #000; }
+.dm-mq::before, .dm-mq::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.dm-mq::before { left: 0; background: linear-gradient(to right, var(--dmc-fade), transparent); }
+.dm-mq::after { right: 0; background: linear-gradient(to left, var(--dmc-fade), transparent); }
+.dm-mq-track { display: flex; width: max-content; gap: 10px; }
+.dm-mq-track.is-left { animation: dmc-left 28s linear infinite; }
+.dm-mq-track.is-right { animation: dmc-right 32s linear infinite; }
+.dm-mq-track.is-slow { animation-duration: 42s; }
+.dm-mq:hover .dm-mq-track { animation-play-state: paused; }
+@keyframes dmc-left { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes dmc-right { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+.dm-mq-label { text-align: center; font-size: .82rem; letter-spacing: .14em; color: #9aa5a3; margin: 0 0 1.25rem; padding-inline: 16px; }
+
+.dm-logos { background: #000; border-block: 1px solid #1f1f1f; padding-block: 2.75rem; }
+.dm-logo-pill { display: flex; align-items: center; gap: 10px; padding: 0 26px; height: 48px; border-right: 1px solid #1f1f1f; font-size: .9rem; font-weight: 500; color: #9a9a9a; white-space: nowrap; }
+.dm-logo-icon { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; font-size: .72rem; font-weight: 900; color: #fff; flex-shrink: 0; }
+.dm-tagband { background: var(--wp--preset--color--teal-darker, #051311); padding-block: 3.25rem; border-bottom: 1px solid rgba(13, 148, 136, .15); }
+.dm-tagband .dm-mq { --dmc-fade: var(--wp--preset--color--teal-darker, #051311); margin-bottom: 10px; }
+.dm-tagpill { padding: 8px 18px; border-radius: 99px; font-size: .88rem; white-space: nowrap; background: rgba(255, 255, 255, .04); border: 1px solid #1f1f1f; color: #9aa5a3; }
+.dm-tagpill.is-hot { background: rgba(200, 255, 0, .07); border-color: rgba(200, 255, 0, .3); color: var(--dmc-lime); }
+
+/* ---------- 評論 ---------- */
+.dm-testi .dm-mq { --dmc-fade: #fff; }
+.dm-testi .dm-mq-track { gap: 18px; padding-inline: 18px; }
+.dm-testi-card { margin: 0; background: #fff; border: 1px solid #e8e3da; border-radius: var(--dmc-radius); padding: 1.6rem; width: 310px; flex-shrink: 0; color: #111; display: flex; flex-direction: column; gap: .75rem; }
+.dm-testi-tag { align-self: flex-start; font-size: .72rem; font-weight: 700; color: var(--wp--preset--color--teal-mid, #0a7a70); background: rgba(13, 148, 136, .08); padding: 3px 10px; border-radius: 99px; }
+.dm-testi-card blockquote { margin: 0; padding: 0; border: 0; font-size: .92rem; color: #555; line-height: 1.85; }
+.dm-testi-card figcaption { display: flex; flex-direction: column; font-size: .88rem; }
+.dm-testi-card figcaption span { font-size: .8rem; color: #777; }
+.dm-empty { border: 1.5px dashed #cfc7b8; border-radius: 12px; padding: 1.5rem; text-align: center; color: #6b6b6b; }
+
+/* ---------- 編輯器預覽 ---------- */
+.dm-editor-preview .dm-mq-track { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.dm-mq-track, .dm-live-dot, .dm-feed-log li { animation: none !important; }
+	.dm-mq { overflow-x: auto; }
+}
+
+.dm-testi { background: #fff; padding-block: clamp(4.5rem, 8vw, 6rem); overflow: hidden; }
+.dm-testi-h { text-align: center; color: #111; font-family: var(--wp--preset--font-family--display, serif); font-weight: 900; font-size: var(--wp--preset--font-size--x-large, 2.6rem); margin: 0 0 2.5rem; padding-inline: 16px; }

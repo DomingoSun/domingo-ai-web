@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "domingo/marquees",
+	"title": "工具與產業跑馬燈",
+	"category": "domingo",
+	"description": "串接工具與產業標籤兩種跑馬燈。內容在「網站設定」修改。",
+	"textdomain": "domingo-core",
+	"supports": { "html": false, "align": [ "wide", "full" ], "anchor": true },
+	"editorScript": "domingo-core-editor",
+	"viewScript": "domingo-core-front",
+	"style": "domingo-core-blocks",
+	"render": "file:./render.php"
+}

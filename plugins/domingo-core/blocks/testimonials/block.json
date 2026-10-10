@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "domingo/testimonials",
+	"title": "評論跑馬燈",
+	"category": "domingo",
+	"description": "自動讀取後台「評論」清單。",
+	"textdomain": "domingo-core",
+	"supports": { "html": false, "align": [ "wide", "full" ], "anchor": true },
+	"editorScript": "domingo-core-editor",
+	"viewScript": "domingo-core-front",
+	"style": "domingo-core-blocks",
+	"render": "file:./render.php"
+}
